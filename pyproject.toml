@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "confwire"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.9"
+keywords = []
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/sridhurkeshs/confwire"
+Repository = "https://github.com/sridhurkeshs/confwire"
+Issues = "https://github.com/sridhurkeshs/confwire/issues"
+
+[tool.hatch.version]
+path = "confwire/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/confwire",
+    "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["confwire"]
