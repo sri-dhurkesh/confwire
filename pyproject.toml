@@ -27,10 +27,13 @@ dependencies = [
     "yapf>=0.43.0",
 ]
 
+[project.scripts]
+docs-build = "confwire._docs:build"
+
 [project.urls]
-Homepage = "https://github.com/sridhurkeshs/confwire"
-Repository = "https://github.com/sridhurkeshs/confwire"
-Issues = "https://github.com/sridhurkeshs/confwire/issues"
+Homepage = "https://github.com/sri-dhurkesh/confwire"
+Repository = "https://github.com/sri-dhurkesh/confwire"
+Issues = "https://github.com/sri-dhurkesh/confwire/issues"
 
 [tool.hatch.version]
 path = "confwire/__init__.py"
@@ -43,3 +46,12 @@ include = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["confwire"]
+
+[dependency-groups]
+docs = [
+    "myst-parser>=4.0.1",
+    "sphinx<7.2",
+    "sphinx-material>=0.0.36",
+    "sphinx-multiversion>=0.2.4",
+    "sphinx-tabs>=3.5.0",
+]
