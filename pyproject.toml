@@ -29,6 +29,7 @@ dependencies = [
 
 [project.scripts]
 docs-build = "confwire._docs:build"
+docs-multiversion = "confwire._docs:build_multiversion"
 
 [project.urls]
 Homepage = "https://github.com/sri-dhurkesh/confwire"

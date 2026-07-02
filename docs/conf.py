@@ -17,6 +17,12 @@ author = "confwire contributors"
 release = confwire_version
 version = confwire_version
 
+# Avoid Sphinx's default "confwire 0.1.0 documentation" title in the page
+# <title> and header logo — keep the version visible only via the version
+# dropdown instead.
+html_title = "confwire"
+html_short_title = "confwire"
+
 # -- General configuration ----------------------------------------------------
 
 extensions = [
