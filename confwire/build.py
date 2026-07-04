@@ -144,6 +144,3 @@ def build_value(value: Any, base_package: str = None, blocked_types: set = None)
             for key, val in value.items()
         }
     return value
-
-
-print(build_from_config(test_data))
