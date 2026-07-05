@@ -10,6 +10,7 @@ behavior in unit_test_for_build_from_config.md, the test is marked
 `xfail` with a comment explaining the gap/bug, so the suite documents
 the discrepancy rather than silently passing or hard-failing.
 """
+
 import sys
 import types
 from concurrent.futures import ThreadPoolExecutor
@@ -19,12 +20,12 @@ import pytest
 
 from confwire.build import build_from_config
 
-
 # ---------------------------------------------------------------------------
 # Shared fixtures: fake, dependency-free classes registered as real
 # importable modules so import_module()/getattr() in build_from_config
 # can resolve them exactly like real third-party packages.
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture(autouse=True)
 def fake_package():
@@ -256,7 +257,10 @@ def test_ut017_type_is_none_raises(fake_package):
 # UT018 - Verify import_module() invocation
 # ---------------------------------------------------------------------------
 def test_ut018_import_module_invocation(fake_package):
-    with patch("confwire.build.import_module", wraps=sys.modules["confwire.build"].import_module) as mock_import:
+    with patch(
+        "confwire.build.import_module",
+        wraps=sys.modules["confwire.build"].import_module,
+    ) as mock_import:
         build_from_config({"type": "fakepkg.Foo", "a": 1})
         mock_import.assert_called_once_with("fakepkg")
 
@@ -327,7 +331,9 @@ def test_ut022_list_of_primitives_unchanged(fake_package):
     "future support in the spec.",
 )
 def test_ut023_list_of_typed_objects(fake_package):
-    result = build_from_config({"type": "fakepkg.Foo", "items": [{"type": "fakepkg.Bar"}]})
+    result = build_from_config(
+        {"type": "fakepkg.Foo", "items": [{"type": "fakepkg.Bar"}]}
+    )
     assert isinstance(result.kwargs["items"][0], fake_package.Bar)
 
 
@@ -338,7 +344,9 @@ def test_ut023_list_of_typed_objects(fake_package):
     reason="Tuple recursion is not implemented; future support per spec.",
 )
 def test_ut024_tuple_of_typed_objects(fake_package):
-    result = build_from_config({"type": "fakepkg.Foo", "items": ({"type": "fakepkg.Bar"},)})
+    result = build_from_config(
+        {"type": "fakepkg.Foo", "items": ({"type": "fakepkg.Bar"},)}
+    )
     assert isinstance(result.kwargs["items"][0], fake_package.Bar)
 
 
@@ -438,8 +446,9 @@ def test_ut032_bedrock_regression_example():
     Full regression using real addict/stdlib packages, matching the
     original test_data example's nested-object shape.
     """
-    from addict import Dict
     from collections import OrderedDict
+
+    from addict import Dict
 
     config = {
         "type": "collections.OrderedDict",

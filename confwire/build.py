@@ -1,7 +1,7 @@
 """Build Python objects from ``"type"``-tagged configuration dictionaries."""
 
-from typing import Any
 from importlib import import_module
+from typing import Any
 
 #: Dotted ``"type"`` paths that are never allowed to be built, regardless
 #: of caller-supplied ``blocked_types``, since they allow arbitrary
@@ -33,7 +33,9 @@ DEFAULT_BLOCKED_TYPES = frozenset(
 )
 
 
-def build_from_config(config_dict: dict, base_package: str = None, blocked_types=None):
+def build_from_config(
+    config_dict: dict, base_package: str | None = None, blocked_types=None
+):
     """Recursively build an object from a configuration dictionary.
 
     ``config_dict`` must contain a ``"type"`` key holding a dotted import
@@ -107,7 +109,9 @@ def build_from_config(config_dict: dict, base_package: str = None, blocked_types
     return instance(**kwargs)
 
 
-def build_value(value: Any, base_package: str = None, blocked_types: set = None):
+def build_value(
+    value: Any, base_package: str | None = None, blocked_types: set | None = None
+):
     """
     Recursively build any dict value found while building a config.
 

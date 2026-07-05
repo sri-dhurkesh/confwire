@@ -19,7 +19,7 @@ import yapf
 from addict import Dict
 from yapf.yapflib.yapf_api import FormatCode
 
-from .utils import import_modules_from_strings, check_file_exist, digit_version
+from .utils import check_file_exist, digit_version, import_modules_from_strings
 
 if platform.system() == "Windows":
     import regex as re  # type: ignore
@@ -129,7 +129,7 @@ class Config:
 
     @staticmethod
     def _pre_substitute_base_vars(filename, temp_config_name):
-        """Substitute base variable placehoders to string, so that parsing
+        """Substitute base variable placeholders to string, so that parsing
         would work."""
         with open(filename, encoding="utf-8") as f:
             # Setting encoding explicitly to resolve coding issue on windows
