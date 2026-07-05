@@ -24,6 +24,7 @@ classifiers = [
 dependencies = [
     "addict>=2.4.0",
     "pyyaml>=6.0",
+    "regex>=2026.6.28",
     "yapf>=0.43.0",
 ]
 
