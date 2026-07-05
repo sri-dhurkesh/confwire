@@ -59,6 +59,7 @@ dev = [
     "mypy>=1.15.0",
     "pyupgrade>=3.19.0",
     "codespell>=2.4.0",
+    "pytest-cov>=7.1.0",
 ]
 docs = [
     "myst-parser>=4.0.1",
@@ -87,6 +88,10 @@ select = ["E", "F", "I", "W"]
 python_version = "3.10"
 ignore_missing_imports = true
 exclude = ["tests/"]
+
+[tool.coverage.run]
+source = ["confwire"]
+omit = ["confwire/_docs.py"]
 
 [tool.codespell]
 skip = "*.lock,*.svg"
