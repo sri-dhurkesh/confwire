@@ -30,7 +30,6 @@ dependencies = [
 
 [project.scripts]
 docs-build = "confwire._docs:build"
-docs-multiversion = "confwire._docs:build_multiversion"
 
 [project.urls]
 Homepage = "https://github.com/sri-dhurkesh/confwire"
@@ -65,7 +64,6 @@ docs = [
     "myst-parser>=4.0.1",
     "sphinx<7.2",
     "furo>=2024.1.29",
-    "sphinx-multiversion>=0.2.4",
     "sphinx-tabs>=3.5.0",
 ]
 

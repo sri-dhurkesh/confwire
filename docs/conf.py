@@ -32,10 +32,8 @@ extensions = [
     "sphinx.ext.intersphinx",
     "myst_parser",
     "sphinx_tabs.tabs",
-    "sphinx_multiversion",
 ]
 
-templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 source_suffix = {
@@ -54,20 +52,36 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
 }
 
-# -- Options for sphinx-multiversion ------------------------------------------
-
-# Build docs for the main branch and any semver-style release tag (v1.2.3).
-smv_branch_whitelist = r"^main$"
-smv_tag_whitelist = r"^v\d+\.\d+\.\d+$"
-smv_remote_whitelist = r"^origin$"
-smv_released_pattern = r"^refs/tags/v\d+\.\d+\.\d+$"
-smv_outputdir_format = "{ref.name}"
-smv_prefer_remote_refs = False
-
 # -- Options for HTML output --------------------------------------------------
 
 html_theme = "furo"
 html_static_path = ["_static"]
+templates_path = ["_templates"]
+html_css_files = ["versions.css"]
+
+# Versioning is handled by Read the Docs, not sphinx-multiversion: RTD builds
+# one version per branch/tag (``stable`` = latest release, ``latest`` = main,
+# plus every activated tag) and never overwrites previously published builds.
+#
+# RTD's default version flyout floats bottom-right; the spec calls for the
+# selector in the left sidebar, so we inject our own into Furo's sidebar
+# (_templates/sidebar/versions.html). It is populated at runtime from the
+# data RTD's addons embed in every page, and stays hidden off Read the Docs.
+html_sidebars = {
+    "**": [
+        "sidebar/brand.html",
+        "sidebar/search.html",
+        "sidebar/versions.html",
+        "sidebar/scroll-start.html",
+        "sidebar/navigation.html",
+        "sidebar/scroll-end.html",
+    ]
+}
+
+# Expose whether we are building on Read the Docs to the sidebar template.
+html_context = {
+    "READTHEDOCS": os.environ.get("READTHEDOCS") == "True",
+}
 
 # Brand logos live in the top-level assets/ directory and are copied into
 # _static. Furo shows a separate variant in light and dark mode so the

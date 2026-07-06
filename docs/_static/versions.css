@@ -1,0 +1,26 @@
+/* Version selector injected into the Furo sidebar (sidebar/versions.html). */
+.sidebar-versions {
+  padding: var(--sidebar-item-spacing-vertical, 0.5rem) var(--sidebar-item-spacing-horizontal, 1rem);
+  border-bottom: 1px solid var(--color-sidebar-search-border, var(--color-background-border));
+}
+
+.sidebar-versions__label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: var(--sidebar-caption-font-size, 0.8125rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-sidebar-caption-text, var(--color-foreground-muted));
+}
+
+.sidebar-versions__select {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  font-size: var(--font-size--small, 0.875rem);
+  color: var(--color-foreground-primary);
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-background-border);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}

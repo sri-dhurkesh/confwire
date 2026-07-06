@@ -10,12 +10,6 @@ set BUILDDIR=_build
 
 if "%1" == "" goto help
 
-if "%1" == "multiversion" (
-	uv run sphinx-multiversion %SOURCEDIR% %BUILDDIR%\html %SPHINXOPTS% %O%
-	uv run python gen_versions_json.py %BUILDDIR%\html
-	goto end
-)
-
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
 goto end
 
