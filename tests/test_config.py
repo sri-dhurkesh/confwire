@@ -357,8 +357,8 @@ def test_merge_delete():
     assert "_delete_" not in cfg.item2
 
     # related issue: https://github.com/open-mmlab/mmcv/issues/1570
-    assert type(cfg.item1) == ConfigDict
-    assert type(cfg.item2) == ConfigDict
+    assert isinstance(cfg.item1, ConfigDict)
+    assert isinstance(cfg.item2, ConfigDict)
 
 
 def test_merge_intermediate_variable():
