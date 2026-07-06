@@ -1,0 +1,115 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv and set the Python version
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: uv sync --all-extras --group dev
+
+      - name: Validate PR title format
+        run: |
+          import re
+          import sys
+          title = "${{ github.event.pull_request.title }}"
+          pattern = r'^(feat|fix|docs|style|refactor|perf|test|chore|ci|build)(\(.+\))?!?: .{10,}$'
+
+          if not re.match(pattern, title):
+            print(f"FAILED: PR title does not follow conventional commits format")
+            print(f"Title: {title}")
+            print(f"Expected format: <type>(<scope>)!?: <description>")
+            print(f"Example: feat(config): add support for environment variables")
+            sys.exit(1)
+          else:
+            print(f"PASSED: PR title is valid: {title}")
+        shell: python
+
+      - name: Check PR has description
+        run: |
+          if [ -z "${{ github.event.pull_request.body }}" ]; then
+            echo "FAILED: PR description cannot be empty"
+            exit 1
+          fi
+          echo "PASSED: PR has a description"
+
+      - name: Run pre-commit checks
+        run: uv run pre-commit run --all-files --show-diff-on-failure
+
+      - name: Run type checking
+        run: uv run mypy confwire
+
+      - name: Run tests
+        run: uv run pytest tests -v --cov --cov-branch --cov-report=term-missing
+
+      - name: Check test coverage
+        run: |
+          coverage_percent=$(uv run coverage report | grep TOTAL | awk '{print $NF}' | sed 's/%//')
+          min_coverage=80
+          if (( $(echo "$coverage_percent < $min_coverage" | bc -l) )); then
+            echo "WARNING: Coverage is ${coverage_percent}% (minimum: ${min_coverage}%)"
+          else
+            echo "PASSED: Coverage is ${coverage_percent}% (minimum: ${min_coverage}%)"
+          fi
+
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit message format (informational)
+        run: |
+          import subprocess
+          import re
+
+          # Get commits in this PR
+          base = "${{ github.event.pull_request.base.sha }}"
+          head = "${{ github.event.pull_request.head.sha }}"
+
+          try:
+            commits = subprocess.check_output(
+              ['git', 'log', '--format=%B', f'{base}...{head}'],
+              text=True
+            ).strip().split('\n\n')
+
+            pattern = r'^(feat|fix|docs|style|refactor|perf|test|chore|ci|build)(\(.+\))?!?: .{10,}$'
+            conventional = 0
+            non_conventional = []
+
+            for commit in commits:
+              first_line = commit.split('\n')[0].strip()
+              if first_line:
+                if re.match(pattern, first_line):
+                  conventional += 1
+                else:
+                  non_conventional.append(first_line)
+
+            if conventional > 0:
+              print(f"PASSED: {conventional} commit(s) follow conventional commits format")
+            if non_conventional:
+              print(f"INFO: {len(non_conventional)} commit(s) don't follow conventional format (optional):")
+              for msg in non_conventional:
+                print(f"  - {msg}")
+              print("\nTip: Consider using conventional commits format for better clarity")
+          except Exception as e:
+            print(f"WARNING: Could not validate commit messages: {e}")
+        shell: python
