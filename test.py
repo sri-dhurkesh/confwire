@@ -19,9 +19,7 @@ model = dict(
         style="pytorch",
         init_cfg=dict(type="Pretrained", checkpoint="torchvision://resnet50"),
     ),
-    neck=dict(
-        type="FPN", in_channels=[256, 512, 1024, 2048], out_channels=256, num_outs=5
-    ),
+    neck=dict(type="FPN", in_channels=[256, 512, 1024, 2048], out_channels=256, num_outs=5),
     rpn_head=dict(
         type="RPNHead",
         in_channels=256,
@@ -63,9 +61,7 @@ model = dict(
                     target_stds=[0.1, 0.1, 0.2, 0.2],
                 ),
                 reg_class_agnostic=True,
-                loss_cls=dict(
-                    type="CrossEntropyLoss", use_sigmoid=False, loss_weight=1.0
-                ),
+                loss_cls=dict(type="CrossEntropyLoss", use_sigmoid=False, loss_weight=1.0),
                 loss_bbox=dict(type="SmoothL1Loss", beta=1.0, loss_weight=1.0),
             ),
             dict(
@@ -80,9 +76,7 @@ model = dict(
                     target_stds=[0.05, 0.05, 0.1, 0.1],
                 ),
                 reg_class_agnostic=True,
-                loss_cls=dict(
-                    type="CrossEntropyLoss", use_sigmoid=False, loss_weight=1.0
-                ),
+                loss_cls=dict(type="CrossEntropyLoss", use_sigmoid=False, loss_weight=1.0),
                 loss_bbox=dict(type="SmoothL1Loss", beta=1.0, loss_weight=1.0),
             ),
             dict(
@@ -97,9 +91,7 @@ model = dict(
                     target_stds=[0.033, 0.033, 0.067, 0.067],
                 ),
                 reg_class_agnostic=True,
-                loss_cls=dict(
-                    type="CrossEntropyLoss", use_sigmoid=False, loss_weight=1.0
-                ),
+                loss_cls=dict(type="CrossEntropyLoss", use_sigmoid=False, loss_weight=1.0),
                 loss_bbox=dict(type="SmoothL1Loss", beta=1.0, loss_weight=1.0),
             ),
         ],
@@ -199,8 +191,6 @@ model = dict(
             nms=dict(type="nms", iou_threshold=0.7),
             min_bbox_size=0,
         ),
-        rcnn=dict(
-            score_thr=0.05, nms=dict(type="nms", iou_threshold=0.5), max_per_img=100
-        ),
+        rcnn=dict(score_thr=0.05, nms=dict(type="nms", iou_threshold=0.5), max_per_img=100),
     ),
 )
