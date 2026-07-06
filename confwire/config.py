@@ -42,9 +42,7 @@ class ConfigDict(Dict):
         try:
             value = super().__getattr__(name)
         except KeyError:
-            ex = AttributeError(
-                f"'{self.__class__.__name__}' object has no attribute '{name}'"
-            )
+            ex = AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
         except Exception as e:
             ex = e
         else:
@@ -162,13 +160,9 @@ class Config:
                 elif isinstance(v, (list, tuple, dict)):
                     cfg[k] = Config._substitute_base_vars(v, base_var_dict, base_cfg)
         elif isinstance(cfg, tuple):
-            cfg = tuple(
-                Config._substitute_base_vars(c, base_var_dict, base_cfg) for c in cfg
-            )
+            cfg = tuple(Config._substitute_base_vars(c, base_var_dict, base_cfg) for c in cfg)
         elif isinstance(cfg, list):
-            cfg = [
-                Config._substitute_base_vars(c, base_var_dict, base_cfg) for c in cfg
-            ]
+            cfg = [Config._substitute_base_vars(c, base_var_dict, base_cfg) for c in cfg]
         elif isinstance(cfg, str) and cfg in base_var_dict:
             new_v = base_cfg
             for new_k in base_var_dict[cfg].split("."):
@@ -186,9 +180,7 @@ class Config:
             raise OSError("Only py/yml/yaml/json type are supported now!")
 
         with tempfile.TemporaryDirectory() as temp_config_dir:
-            temp_config_file = tempfile.NamedTemporaryFile(
-                dir=temp_config_dir, suffix=fileExtname
-            )
+            temp_config_file = tempfile.NamedTemporaryFile(dir=temp_config_dir, suffix=fileExtname)
             if platform.system() == "Windows":
                 temp_config_file.close()
             temp_config_name = osp.basename(temp_config_file.name)
@@ -198,9 +190,7 @@ class Config:
             else:
                 shutil.copyfile(filename, temp_config_file.name)
             # Substitute base variables from placeholders to strings
-            base_var_dict = Config._pre_substitute_base_vars(
-                temp_config_file.name, temp_config_file.name
-            )
+            base_var_dict = Config._pre_substitute_base_vars(temp_config_file.name, temp_config_file.name)
 
             if filename.endswith(".py"):
                 temp_module_name = osp.splitext(temp_config_name)[0]
@@ -225,15 +215,11 @@ class Config:
         # check deprecation information
         if DEPRECATION_KEY in cfg_dict:
             deprecation_info = cfg_dict.pop(DEPRECATION_KEY)
-            warning_msg = (
-                f"The config file {filename} will be deprecated in the future."
-            )
+            warning_msg = f"The config file {filename} will be deprecated in the future."
             if "expected" in deprecation_info:
                 warning_msg += f" Please use {deprecation_info['expected']} instead."
             if "reference" in deprecation_info:
-                warning_msg += (
-                    f" More information can be found at {deprecation_info['reference']}"
-                )
+                warning_msg += f" More information can be found at {deprecation_info['reference']}"
             warnings.warn(warning_msg, DeprecationWarning)
 
         cfg_text = filename + "\n"
@@ -244,9 +230,7 @@ class Config:
         if BASE_KEY in cfg_dict:
             cfg_dir = osp.dirname(filename)
             base_filename = cfg_dict.pop(BASE_KEY)
-            base_filename = (
-                base_filename if isinstance(base_filename, list) else [base_filename]
-            )
+            base_filename = base_filename if isinstance(base_filename, list) else [base_filename]
 
             cfg_dict_list = list()
             cfg_text_list = list()
@@ -259,16 +243,11 @@ class Config:
             for c in cfg_dict_list:
                 duplicate_keys = base_cfg_dict.keys() & c.keys()
                 if len(duplicate_keys) > 0:
-                    raise KeyError(
-                        "Duplicate key is not allowed among bases. "
-                        f"Duplicate keys: {duplicate_keys}"
-                    )
+                    raise KeyError("Duplicate key is not allowed among bases. " f"Duplicate keys: {duplicate_keys}")
                 base_cfg_dict.update(c)
 
             # Substitute base variables from strings to their actual values
-            cfg_dict = Config._substitute_base_vars(
-                cfg_dict, base_var_dict, base_cfg_dict
-            )
+            cfg_dict = Config._substitute_base_vars(cfg_dict, base_var_dict, base_cfg_dict)
 
             base_cfg_dict = Config._merge_a_into_b(cfg_dict, base_cfg_dict)
             cfg_dict = base_cfg_dict
@@ -363,9 +342,7 @@ class Config:
         if file_format != ".py" and "dict(" in cfg_str:
             # check if users specify a wrong suffix for python
             warnings.warn('Please check "file_format", the file format may be .py')
-        with tempfile.NamedTemporaryFile(
-            "w", encoding="utf-8", suffix=file_format, delete=False
-        ) as temp_file:
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=file_format, delete=False) as temp_file:
             temp_file.write(cfg_str)
             # on windows, previous implementation cause error
             # see PR 1077 for details
@@ -450,9 +427,7 @@ class Config:
             # check if all items in the list are dict
             if all(isinstance(_, dict) for _ in v):
                 v_str = "[\n"
-                v_str += "\n".join(
-                    f"dict({_indent(_format_dict(v_), indent)})," for v_ in v
-                ).rstrip(",")
+                v_str += "\n".join(f"dict({_indent(_format_dict(v_), indent)})," for v_ in v).rstrip(",")
                 if use_mapping:
                     k_str = f"'{k}'" if isinstance(k, str) else str(k)
                     attr_str = f"{k_str}: {v_str}"
@@ -644,9 +619,7 @@ class Config:
         cfg_dict = super().__getattribute__("_cfg_dict")
         super().__setattr__(
             "_cfg_dict",
-            Config._merge_a_into_b(
-                option_cfg_dict, cfg_dict, allow_list_keys=allow_list_keys
-            ),
+            Config._merge_a_into_b(option_cfg_dict, cfg_dict, allow_list_keys=allow_list_keys),
         )
 
 
@@ -710,11 +683,7 @@ class DictAction(Action):
             for idx, char in enumerate(string):
                 pre = string[:idx]
                 # The string before this ',' is balanced
-                if (
-                    (char == ",")
-                    and (pre.count("(") == pre.count(")"))
-                    and (pre.count("[") == pre.count("]"))
-                ):
+                if (char == ",") and (pre.count("(") == pre.count(")")) and (pre.count("[") == pre.count("]")):
                     end = idx
                     break
             return end

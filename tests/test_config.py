@@ -154,9 +154,7 @@ def test_fromfile():
             cfg = Config.fromfile(item)
             assert isinstance(cfg, Config)
             assert isinstance(cfg.filename, str) and cfg.filename == str(item)
-            assert (
-                cfg.text == osp.abspath(osp.expanduser(item)) + "\n" + open(item).read()
-            )
+            assert cfg.text == osp.abspath(osp.expanduser(item)) + "\n" + open(item).read()
 
     # test custom_imports for Config.fromfile
     cfg_file = osp.join(data_path, "config", "q.py")
@@ -208,12 +206,8 @@ def test_merge_from_base():
     assert isinstance(cfg, Config)
     assert cfg.filename == cfg_file
     base_cfg_file = osp.join(data_path, "config/base.py")
-    merge_text = (
-        osp.abspath(osp.expanduser(base_cfg_file)) + "\n" + open(base_cfg_file).read()
-    )
-    merge_text += (
-        "\n" + osp.abspath(osp.expanduser(cfg_file)) + "\n" + open(cfg_file).read()
-    )
+    merge_text = osp.abspath(osp.expanduser(base_cfg_file)) + "\n" + open(base_cfg_file).read()
+    merge_text += "\n" + osp.abspath(osp.expanduser(cfg_file)) + "\n" + open(cfg_file).read()
     assert cfg.text == merge_text
     assert cfg.item1 == [2, 3]
     assert cfg.item2.a == 1
@@ -501,13 +495,9 @@ def test_pretty_text():
 
 def test_dict_action():
     parser = argparse.ArgumentParser(description="Train a detector")
-    parser.add_argument(
-        "--options", nargs="+", action=DictAction, help="custom options"
-    )
+    parser.add_argument("--options", nargs="+", action=DictAction, help="custom options")
     # Nested brackets
-    args = parser.parse_args(
-        ["--options", "item2.a=a,b", "item2.b=[(a,b), [1,2], false]"]
-    )
+    args = parser.parse_args(["--options", "item2.a=a,b", "item2.b=[(a,b), [1,2], false]"])
     out_dict = {"item2.a": ["a", "b"], "item2.b": [("a", "b"), [1, 2], False]}
     assert args.options == out_dict
     # Single Nested brackets

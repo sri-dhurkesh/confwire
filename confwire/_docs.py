@@ -27,8 +27,4 @@ def build_multiversion() -> None:
     if ret != 0:
         raise SystemExit(ret)
 
-    raise SystemExit(
-        subprocess.call(
-            [sys.executable, "gen_versions_json.py", str(output_dir)], cwd=DOCS_DIR
-        )
-    )
+    raise SystemExit(subprocess.call([sys.executable, "gen_versions_json.py", str(output_dir)], cwd=DOCS_DIR))
