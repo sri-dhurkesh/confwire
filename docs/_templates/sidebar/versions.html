@@ -1,0 +1,42 @@
+{#
+  Version selector for the Furo left sidebar.
+
+  Read the Docs serves one build per version (stable = latest release,
+  latest = main, plus every activated tag) and injects an "addons" script
+  into every page. That script dispatches a `readthedocs-addons-data-ready`
+  event carrying the list of active versions and their URLs, which we use to
+  populate the <select> below. Off Read the Docs (local `sphinx-build`) the
+  event never fires and the widget stays hidden, so local builds are
+  unaffected.
+#}
+<div class="sidebar-versions" id="rtd-version-selector" hidden>
+  <label class="sidebar-versions__label" for="rtd-version-select">Version</label>
+  <select class="sidebar-versions__select" id="rtd-version-select"></select>
+</div>
+
+<script>
+  document.addEventListener("readthedocs-addons-data-ready", function (event) {
+    const data = event.detail.data();
+    const wrapper = document.getElementById("rtd-version-selector");
+    const select = document.getElementById("rtd-version-select");
+    if (!wrapper || !select) return;
+
+    const active = (data.versions && data.versions.active) || [];
+    const currentSlug = data.versions && data.versions.current && data.versions.current.slug;
+    if (!active.length) return;
+
+    for (const version of active) {
+      const option = document.createElement("option");
+      option.value = version.urls.documentation;
+      option.textContent = version.slug;
+      if (version.slug === currentSlug) option.selected = true;
+      select.appendChild(option);
+    }
+
+    select.addEventListener("change", function () {
+      if (this.value) window.location.href = this.value;
+    });
+
+    wrapper.hidden = false;
+  });
+</script>

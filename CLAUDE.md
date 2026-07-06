@@ -25,7 +25,7 @@ uv run isort confwire tests   # sort imports
 pre-commit run --all-files    # run the full hook suite (black, isort, ruff, mypy, codespell, pyupgrade)
 ```
 
-Docs are built via console scripts defined in pyproject: `docs-build` and `docs-multiversion` (both in `confwire/_docs.py`, which is excluded from coverage).
+Docs are built via the `docs-build` console script (`confwire/_docs.py`, excluded from coverage), a thin `sphinx-build` wrapper for local single-version builds. Versioning (`stable` = latest release, `latest`/`dev` = `main`, plus a preserved build per release tag) is handled by Read the Docs, which runs `sphinx-build` once per version — see `.readthedocs.yaml`. The version selector is injected into Furo's left sidebar by `docs/_templates/sidebar/versions.html`, populated at runtime from RTD's addons data.
 
 ## Architecture
 
