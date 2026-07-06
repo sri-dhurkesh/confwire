@@ -33,9 +33,7 @@ DEFAULT_BLOCKED_TYPES = frozenset(
 )
 
 
-def build_from_config(
-    config_dict: dict, base_package: str | None = None, blocked_types=None
-):
+def build_from_config(config_dict: dict, base_package: str | None = None, blocked_types=None):
     """Recursively build an object from a configuration dictionary.
 
     ``config_dict`` must contain a ``"type"`` key holding a dotted import
@@ -82,9 +80,7 @@ def build_from_config(
 
     blocklist = DEFAULT_BLOCKED_TYPES if blocked_types is None else blocked_types
     if import_path in blocklist:
-        raise PermissionError(
-            f"Building objects of type '{import_path}' is not allowed."
-        )
+        raise PermissionError(f"Building objects of type '{import_path}' is not allowed.")
 
     module = ".".join(import_path.split(".")[:-1])
     name_of_object = import_path.split(".")[-1]
@@ -102,16 +98,11 @@ def build_from_config(
         resolved_module = import_module(module)
 
     instance = getattr(resolved_module, name_of_object)
-    kwargs = {
-        key: build_value(value, base_package, blocked_types)
-        for key, value in data.items()
-    }
+    kwargs = {key: build_value(value, base_package, blocked_types) for key, value in data.items()}
     return instance(**kwargs)
 
 
-def build_value(
-    value: Any, base_package: str | None = None, blocked_types: set | None = None
-):
+def build_value(value: Any, base_package: str | None = None, blocked_types: set | None = None):
     """
     Recursively build any dict value found while building a config.
 
@@ -140,11 +131,6 @@ def build_value(
     """
     if isinstance(value, dict):
         if "type" in value:
-            return build_from_config(
-                value, base_package=base_package, blocked_types=blocked_types
-            )
-        return {
-            key: build_value(val, base_package, blocked_types)
-            for key, val in value.items()
-        }
+            return build_from_config(value, base_package=base_package, blocked_types=blocked_types)
+        return {key: build_value(val, base_package, blocked_types) for key, val in value.items()}
     return value

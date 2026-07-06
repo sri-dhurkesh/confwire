@@ -53,9 +53,7 @@ def fake_package():
 
     sys.modules["fakepkg"] = fakepkg
 
-    yield types.SimpleNamespace(
-        NoArgs=NoArgs, Foo=Foo, Bar=Bar, RequiresPositional=RequiresPositional
-    )
+    yield types.SimpleNamespace(NoArgs=NoArgs, Foo=Foo, Bar=Bar, RequiresPositional=RequiresPositional)
 
     sys.modules.pop("fakepkg", None)
 
@@ -331,9 +329,7 @@ def test_ut022_list_of_primitives_unchanged(fake_package):
     "future support in the spec.",
 )
 def test_ut023_list_of_typed_objects(fake_package):
-    result = build_from_config(
-        {"type": "fakepkg.Foo", "items": [{"type": "fakepkg.Bar"}]}
-    )
+    result = build_from_config({"type": "fakepkg.Foo", "items": [{"type": "fakepkg.Bar"}]})
     assert isinstance(result.kwargs["items"][0], fake_package.Bar)
 
 
@@ -344,9 +340,7 @@ def test_ut023_list_of_typed_objects(fake_package):
     reason="Tuple recursion is not implemented; future support per spec.",
 )
 def test_ut024_tuple_of_typed_objects(fake_package):
-    result = build_from_config(
-        {"type": "fakepkg.Foo", "items": ({"type": "fakepkg.Bar"},)}
-    )
+    result = build_from_config({"type": "fakepkg.Foo", "items": ({"type": "fakepkg.Bar"},)})
     assert isinstance(result.kwargs["items"][0], fake_package.Bar)
 
 
