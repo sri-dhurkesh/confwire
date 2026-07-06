@@ -6,8 +6,10 @@ repos:
       - id: trailing-whitespace
       - id: mixed-line-ending
       - id: check-yaml
+        exclude: ^tests/data/config/
       - id: check-toml
       - id: check-json
+        exclude: ^tests/data/config/
       - id: check-added-large-files
       - id: check-merge-conflict
       - id: detect-private-key

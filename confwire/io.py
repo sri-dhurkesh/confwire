@@ -3,7 +3,7 @@
 import json
 import pickle
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any
 
 import yaml
 
@@ -22,7 +22,7 @@ FILE_FORMAT_TO_MODE = {
 }
 
 
-def infer_file_format(file: Union[str, Path], file_format: Optional[str]) -> str:
+def infer_file_format(file: str | Path, file_format: str | None) -> str:
     if file_format is None:
         file_format = str(file).split(".")[-1]
     if file_format not in FILE_FORMAT_TO_MODE:
@@ -30,7 +30,7 @@ def infer_file_format(file: Union[str, Path], file_format: Optional[str]) -> str
     return file_format
 
 
-def load(file: Union[str, Path], file_format: Optional[str] = None, **kwargs) -> Any:
+def load(file: str | Path, file_format: str | None = None, **kwargs) -> Any:
     """Load data from a json/yaml/pickle file on the local filesystem.
 
     Args:
@@ -56,10 +56,10 @@ def load(file: Union[str, Path], file_format: Optional[str] = None, **kwargs) ->
 
 def dump(
     obj: Any,
-    file: Optional[Union[str, Path]] = None,
-    file_format: Optional[str] = None,
+    file: str | Path | None = None,
+    file_format: str | None = None,
     **kwargs,
-) -> Optional[Union[str, bytes]]:
+) -> str | bytes | None:
     """Dump data as a json/yaml/pickle string or to a file on disk.
 
     Args:
