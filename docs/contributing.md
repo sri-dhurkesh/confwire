@@ -1,6 +1,6 @@
 # Contributing to ConfWire
 
-For comprehensive contribution guidelines, including development setup, commit message standards, code style requirements, and pull request procedures, please refer to the [CONTRIBUTING.md](../CONTRIBUTING.md) file in the repository root.
+For comprehensive contribution guidelines, including development setup, commit message standards, code style requirements, and pull request procedures, please refer to the [CONTRIBUTING.md](https://github.com/sri-dhurkesh/confwire/blob/main/CONTRIBUTING.md) file in the repository root.
 
 This page provides a quick reference for common development tasks.
 
@@ -58,7 +58,7 @@ open _build/html/index.html
 
 ## Need Help?
 
-- See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines
+- See [CONTRIBUTING.md](https://github.com/sri-dhurkesh/confwire/blob/main/CONTRIBUTING.md) for detailed guidelines
 - Check the [API documentation](api.md)
 - Review [existing issues](https://github.com/sri-dhurkesh/confwire/issues)
 
