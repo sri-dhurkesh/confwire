@@ -1,24 +1,37 @@
 # confwire
 
-`confwire` provides a `Config` class for loading, composing, and manipulating
-configuration from Python, YAML, or JSON files, with dict-like access,
-config inheritance, variable substitution, and deprecation warnings.
+A lightweight, Hydra-inspired alternative for instantiating nested Python
+objects from Python-style config files, with type-validated construction and
+precise, path-qualified error messages.
 
-```{note}
-Object instantiation from config (building live Python objects out of a
-config tree) is not implemented yet. This documentation covers only the
-configuration loading and manipulation features that exist today.
-```
+`confwire` gives you two things:
 
-## Contents
+1. A **`Config`** class for loading, composing, and manipulating
+   configuration from Python, YAML, or JSON files — with dict-like access,
+   inheritance, variable substitution, and deprecation warnings.
+2. A **`build_from_config`** function for turning a `"type"`-tagged config
+   tree into live Python objects.
+
+Start with the tutorial to learn how configs work, then move on to building
+objects.
+
+## Tutorial
 
 ```{toctree}
 :maxdepth: 2
 
-getting_started
 installation
+getting_started
 configuration
-usage
+build
+advanced
+```
+
+## Reference
+
+```{toctree}
+:maxdepth: 2
+
 api
 contributing
 changelog

@@ -18,6 +18,15 @@ This page documents the public API of `confwire`.
    :show-inheritance:
 ```
 
+## confwire.build
+
+```{eval-rst}
+.. automodule:: confwire.build
+   :members:
+   :undoc-members:
+   :show-inheritance:
+```
+
 ## confwire.utils
 
 ```{eval-rst}
