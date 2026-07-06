@@ -1,0 +1,8 @@
+<svg width="124" height="160" viewBox="-6 0 124 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="confwire icon color">
+  <defs><linearGradient id="gi" gradientUnits="userSpaceOnUse" x1="68" y1="28" x2="68" y2="132">
+        <stop offset="0" stop-color="#84CC16"/><stop offset="1" stop-color="#16A34A"/></linearGradient></defs>
+  <path d="M 93.2 44.0 A 44 44 0 1 0 93.2 116.0" stroke="url(#gi)" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <circle cx="93.2" cy="44.0" r="11" fill="#84CC16"/>
+  <circle cx="93.2" cy="116.0" r="11" fill="#16A34A"/>
+  <circle cx="93.2" cy="44.0" r="4" fill="#F7FEE7"/><circle cx="93.2" cy="116.0" r="4" fill="#F7FEE7"/>
+</svg>

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/confwire_logo_lime_emerald.svg" alt="ConfWire logo" width="100%">
+</p>
+
 # ConfWire
 
 **ConfWire** is a lightweight Python configuration library that makes application configuration simple, flexible, and Pythonic.
