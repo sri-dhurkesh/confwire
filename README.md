@@ -8,67 +8,32 @@
 
 It supports native Python, YAML, and JSON configuration files while providing powerful configuration composition without the heavy dependencies of MMCV.
 
-[![PyPI version](https://img.shields.io/pypi/v/confwire.svg)](https://pypi.org/project/confwire/)
-[![Python versions](https://img.shields.io/pypi/pyversions/confwire.svg)](https://pypi.org/project/confwire/)
-[![License](https://img.shields.io/github/license/sri-dhurkesh/confwire.svg)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/sri-dhurkesh/confwire/test.yml?branch=main&label=build)](https://github.com/sri-dhurkesh/confwire/actions)
-[![Tests](https://img.shields.io/github/actions/workflow/status/sri-dhurkesh/confwire/test.yml?branch=main&label=tests)](https://github.com/sri-dhurkesh/confwire/actions)
-[![Coverage](https://img.shields.io/codecov/c/github/sri-dhurkesh/confwire)](https://github.com/sri-dhurkesh/confwire)
-[![Ruff](https://img.shields.io/badge/lint-ruff-black.svg)](https://github.com/astral-sh/ruff)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![MyPy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](https://github.com/python/mypy)
-[![Documentation](https://img.shields.io/badge/docs-readthedocs-blue.svg)](https://confwire.readthedocs.io/en/latest/)
-[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen.svg)](https://github.com/pre-commit/pre-commit)
-[![Downloads](https://img.shields.io/pypi/dm/confwire.svg)](https://pypi.org/project/confwire/)
+<p align="center">
+  <a href="https://pypi.org/project/confwire/"><img src="https://img.shields.io/pypi/v/confwire.svg" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/confwire/"><img src="https://img.shields.io/pypi/pyversions/confwire.svg" alt="Python versions"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/sri-dhurkesh/confwire.svg" alt="License"></a>
+  <a href="https://github.com/sri-dhurkesh/confwire/actions"><img src="https://img.shields.io/github/actions/workflow/status/sri-dhurkesh/confwire/test.yml?branch=main&label=build" alt="Build Status"></a>
+  <a href="https://github.com/sri-dhurkesh/confwire/actions"><img src="https://img.shields.io/github/actions/workflow/status/sri-dhurkesh/confwire/test.yml?branch=main&label=tests" alt="Tests"></a>
+  <a href="https://github.com/sri-dhurkesh/confwire"><img src="https://img.shields.io/codecov/c/github/sri-dhurkesh/confwire" alt="Coverage"></a>
+  <br>
+  <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/badge/lint-ruff-black.svg" alt="Ruff"></a>
+  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+  <a href="https://github.com/python/mypy"><img src="https://img.shields.io/badge/type%20checked-mypy-blue.svg" alt="MyPy"></a>
+  <a href="https://confwire.readthedocs.io/en/latest/"><img src="https://img.shields.io/badge/docs-readthedocs-blue.svg" alt="Documentation"></a>
+  <a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen.svg" alt="Pre-commit"></a>
+  <a href="https://pypi.org/project/confwire/"><img src="https://img.shields.io/pypi/dm/confwire.svg" alt="Downloads"></a>
+</p>
 
----
-
-## Features
-
-- **Native Python configuration files** — write configs as plain `.py` files with regular variables and dicts
-- **YAML configuration support** — load and dump `.yaml` / `.yml` files
-- **JSON configuration support** — load and dump `.json` files
-- **Configuration inheritance** — extend one or more base configs with `_base_`
-- **Configuration composition** — merge multiple config files into a single, unified config
-- **Importing configurations from other files** — reference and combine configs across your project
-- **Native Python imports inside configuration files** — use real Python code, functions, and imports in `.py` configs
-- **Object construction from config** — build nested Python objects directly from `"type"`-tagged dictionaries, with a built-in blocklist for dangerous types
-- **Simple API** — a single `Config` class covers loading, merging, and dumping
-- **Zero unnecessary dependencies** — no deep learning frameworks or unrelated tooling required
-- **Lightweight installation** — install in seconds, use in any Python project
-- **Easy integration** — drop it into an existing project without restructuring anything
-
----
-
-## Why ConfWire?
-
-Most Python projects eventually need more than a single flat config file: different environments, experiment variants, or shared defaults that get overridden in specific cases. Reimplementing this composition and inheritance logic by hand is tedious and error-prone.
-
-ConfWire solves this by providing a small, self-contained `Config` object that:
-
-- Loads Python, YAML, or JSON files interchangeably
-- Merges configs together through `_base_` inheritance
-- Preserves dict-like and attribute-like access (`cfg.server.port` and `cfg["server"]["port"]` both work)
-- Lets you build actual Python objects straight from configuration data
-
-It is designed to be dropped into any project, not tied to a specific framework or domain.
-
----
-
-## Comparison with MMCV Config
-
-ConfWire's `Config` system is heavily inspired by [MMCV](https://github.com/open-mmlab/mmcv)'s configuration module, which is well designed but only available as part of the full MMCV package.
-
-| | MMCV Config | ConfWire |
-|---|---|---|
-| Config inheritance & composition | ✅ | ✅ |
-| Python / YAML / JSON configs | ✅ | ✅ |
-| Dict + attribute-style access | ✅ | ✅ |
-| Standalone install | ❌ (requires the MMCV ecosystem) | ✅ |
-| Dependencies | Large (CUDA/vision-oriented stack) | Minimal, pure-Python |
-| Usable outside computer vision projects | Limited | Yes, general purpose |
-
-ConfWire extracts the parts of MMCV's config system that are broadly useful and repackages them as a small, independent library — without requiring MMCV itself.
+<p align="center">
+  <a href="#installation">Installation</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#why-confwire">Why ConfWire?</a> •
+  <a href="#features">Features</a> •
+  <a href="#comparison-with-mmcv-config">Comparison</a> •
+  <a href="#configuration-examples">Examples</a> •
+  <a href="#api-reference">API</a> •
+  <a href="#documentation">Docs</a>
+</p>
 
 ---
 
@@ -103,16 +68,67 @@ print(cfg["server"]["port"])  # dict-style access
 
 ---
 
-## Loading Configurations
+## Why ConfWire?
+
+Most Python projects eventually need more than a single flat config file: different environments, experiment variants, or shared defaults that get overridden in specific cases. Reimplementing this composition and inheritance logic by hand is tedious and error-prone.
+
+ConfWire solves this by providing a small, self-contained `Config` object that:
+
+- Loads Python, YAML, or JSON files interchangeably
+- Merges configs together through `_base_` inheritance
+- Preserves dict-like and attribute-like access (`cfg.server.port` and `cfg["server"]["port"]` both work)
+- Lets you build actual Python objects straight from configuration data
+
+It is designed to be dropped into any project, not tied to a specific framework or domain.
+
+---
+
+## Features
+
+- **Native Python configuration files** — write configs as plain `.py` files with regular variables and dicts
+- **YAML configuration support** — load and dump `.yaml` / `.yml` files
+- **JSON configuration support** — load and dump `.json` files
+- **Configuration inheritance** — extend one or more base configs with `_base_`
+- **Configuration composition** — merge multiple config files into a single, unified config
+- **Importing configurations from other files** — reference and combine configs across your project
+- **Native Python imports inside configuration files** — use real Python code, functions, and imports in `.py` configs
+- **Object construction from config** — build nested Python objects directly from `"type"`-tagged dictionaries, with a built-in blocklist for dangerous types
+- **Simple API** — a single `Config` class covers loading, merging, and dumping
+- **Zero unnecessary dependencies** — no deep learning frameworks or unrelated tooling required
+- **Lightweight installation** — install in seconds, use in any Python project
+- **Easy integration** — drop it into an existing project without restructuring anything
+
+---
+
+## Comparison with MMCV Config
+
+ConfWire's `Config` system is heavily inspired by [MMCV](https://github.com/open-mmlab/mmcv)'s configuration module, which is well designed but only available as part of the full MMCV package.
+
+| | MMCV Config | ConfWire |
+|---|---|---|
+| Config inheritance & composition | ✅ | ✅ |
+| Python / YAML / JSON configs | ✅ | ✅ |
+| Dict + attribute-style access | ✅ | ✅ |
+| Standalone install | ❌ (requires the MMCV ecosystem) | ✅ |
+| Dependencies | Large (CUDA/vision-oriented stack) | Minimal, pure-Python |
+| Usable outside computer vision projects | Limited | Yes, general purpose |
+
+ConfWire extracts the parts of MMCV's config system that are broadly useful and repackages them as a small, independent library — without requiring MMCV itself.
+
+---
+
+## Configuration Examples
+
+### Loading Configurations
 
 `Config.fromfile()` automatically infers the file format from its extension. Supported formats: `.py`, `.yaml` / `.yml`, and `.json`.
 
 ```python
 from confwire import Config
 
-cfg = Config.fromfile("configs/train.py")
-cfg = Config.fromfile("configs/train.yaml")
-cfg = Config.fromfile("configs/train.json")
+cfg = Config.fromfile("configs/app.py")
+cfg = Config.fromfile("configs/app.yaml")
+cfg = Config.fromfile("configs/app.json")
 ```
 
 You can also inspect and export a loaded config:
@@ -124,9 +140,7 @@ cfg.pretty_text   # formatted Python-style representation
 cfg.dump("out.yaml")  # write the config back out, format inferred from extension
 ```
 
----
-
-## Python Configuration Example
+### Python Configuration Example
 
 `config.py`:
 
@@ -162,9 +176,7 @@ logging = dict(
 )
 ```
 
----
-
-## YAML Example
+### YAML Example
 
 `config.yaml`:
 
@@ -184,9 +196,7 @@ cfg = Config.fromfile("config.yaml")
 print(cfg.server.port)  # 8080
 ```
 
----
-
-## JSON Example
+### JSON Example
 
 `config.json`:
 
@@ -210,9 +220,7 @@ cfg = Config.fromfile("config.json")
 print(cfg.server.port)  # 8080
 ```
 
----
-
-## Configuration Inheritance Example
+### Configuration Inheritance Example
 
 A config can extend one or more base configs using the reserved `_base_` key. Values defined in the child config override matching values from the base config(s).
 
@@ -292,6 +300,12 @@ instance = build_from_config({
 ```
 
 A default blocklist prevents `"type"` values that would allow arbitrary code or command execution (e.g. `os.system`, `subprocess.run`, `eval`) from being built.
+
+---
+
+## Documentation
+
+Full documentation, including guides and the complete API reference, is available at [confwire.readthedocs.io](https://confwire.readthedocs.io/en/latest/).
 
 ---
 
