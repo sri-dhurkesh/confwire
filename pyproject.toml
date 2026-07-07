@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "confwire"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "A lightweight, pure-Python configuration library with inheritance, composition, and object construction from type-tagged dicts."
 readme = "README.md"
 license = { text = "Apache-2.0" }
 requires-python = ">=3.10"
-keywords = []
+keywords = ["config", "configuration", "settings", "yaml", "json", "inheritance"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
